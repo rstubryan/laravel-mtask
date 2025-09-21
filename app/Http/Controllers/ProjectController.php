@@ -68,6 +68,10 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
+        if (!auth()->user()->can('delete projects')) {
+            abort(403);
+        }
+
         $project = Project::findOrFail($id);
         $project->delete();
 
