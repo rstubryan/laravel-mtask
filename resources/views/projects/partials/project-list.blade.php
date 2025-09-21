@@ -5,17 +5,21 @@
                 <h3 class="text-lg font-semibold text-gray-900">{{ $project->name }}</h3>
                 <p class="mt-1 text-sm text-gray-600">{{ $project->description }}</p>
                 <div class="mt-4 flex gap-4">
-                    <a href="{{ route('projects.show', $project) }}" class="text-blue-600 hover:underline">
+                    <x-aui::button-link variant="outline" href="
+                    {{ route('projects.show', $project) }}">
                         {{ __('View Project') }}
-                    </a>
+                    </x-aui::button>
+                    @can('edit projects')
+                        @include('projects.partials.edit-project', ['project' => $project])
+                    @endcan
                     @can('delete projects')
                         <form action="{{ route('projects.destroy', $project) }}" method="POST"
                               onsubmit="return confirm('Are you sure you want to delete this project?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:underline">
+                            <x-aui::button type="submit">
                                 {{ __('Delete') }}
-                            </button>
+                            </x-aui::button>
                         </form>
                     @endcan
                 </div>

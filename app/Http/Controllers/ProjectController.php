@@ -53,6 +53,10 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (!auth()->user()->can('edit projects')) {
+            abort(403);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -64,7 +68,7 @@ class ProjectController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
     }
 
     /**
