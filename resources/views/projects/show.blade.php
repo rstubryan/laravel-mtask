@@ -13,22 +13,15 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <h3 class="text-lg font-semibold text-gray-900">{{ $project->name }}</h3>
-                <p class="mt-1 text-sm text-gray-600">{{ $project->description }}</p>
-                <div class="mt-4 flex gap-4">
-                    @can('edit projects')
-                        @include('projects.partials.edit-project', ['project' => $project])
-                    @endcan
-                    @can('delete projects')
-                        <form action="{{ route('projects.destroy', $project) }}" method="POST"
-                              onsubmit="return confirm('Are you sure you want to delete this project?');">
-                            @csrf
-                            @method('DELETE')
-                            <x-aui::button type="submit">
-                                {{ __('Delete') }}
-                            </x-aui::button>
-                        </form>
-                    @endcan
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">{{ $project->name }}</h3>
+                        <p class="mt-1 text-sm text-gray-600">{{ $project->description }}</p>
+                    </div>
+                    @include('projects.partials.create-related-task', ['project' => $project])
+                </div>
+                <div class="mt-4">
+                    @include('projects.partials.task-list', ['tasks' => $project->tasks])
                 </div>
             </div>
         </div>

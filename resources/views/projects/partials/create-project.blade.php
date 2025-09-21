@@ -1,13 +1,14 @@
 <section>
     <x-aui::dialog dismissable="true">
         <x-slot:trigger>
-            <x-aui::button variant="outline">
+            <x-aui::button>
                 Create Project
             </x-aui::button>
         </x-slot:trigger>
         <x-slot:content class="sm:max-w-[425px]">
             <form method="POST" action="{{ route('projects.store') }}" class="max-w-2xl">
                 @csrf
+                @method('POST')
                 <x-aui::dialog-header>
                     <x-slot:title>
                         Create Project

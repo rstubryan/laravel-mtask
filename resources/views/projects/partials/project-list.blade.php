@@ -1,14 +1,15 @@
 <section>
-    <div class="mt-6 space-y-6">
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($projects as $project)
-            <div class="p-4 border border-gray-200 rounded-lg">
-                <h3 class="text-lg font-semibold text-gray-900">{{ $project->name }}</h3>
-                <p class="mt-1 text-sm text-gray-600">{{ $project->description }}</p>
-                <div class="mt-4 flex gap-4">
-                    <x-aui::button-link variant="outline" href="
-                    {{ route('projects.show', $project) }}">
+            <x-aui::card class="md:w-[350px]">
+                <x-slot:title>{{ $project->name }}</x-slot:title>
+                <x-slot:description>
+                    {{ $project->description }}
+                </x-slot:description>
+                <x-slot:footer class="flex flex-wrap gap-4 mt-4">
+                    <x-aui::button-link variant="outline" href="{{ route('projects.show', $project) }}">
                         {{ __('View Project') }}
-                    </x-aui::button>
+                    </x-aui::button-link>
                     @can('edit projects')
                         @include('projects.partials.edit-project', ['project' => $project])
                     @endcan
@@ -22,8 +23,8 @@
                             </x-aui::button>
                         </form>
                     @endcan
-                </div>
-            </div>
+                </x-slot:footer>
+            </x-aui::card>
         @endforeach
     </div>
 </section>

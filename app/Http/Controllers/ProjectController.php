@@ -12,7 +12,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(10);
+        $projects = Project::paginate(9);
         return view('projects.index', compact('projects'));
     }
 
@@ -36,7 +36,7 @@ class ProjectController extends Controller
             'created_by' => auth()->id(),
         ]);
 
-        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
+        return redirect()->back()->with('success', 'Project created successfully.');
     }
 
     /**
@@ -44,8 +44,9 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        $project = Project::findOrFail($id);
-        return view('projects.show', compact('project'));
+        $project = Project::with('tasks')->findOrFail($id);
+        $tasks = $project->tasks;
+        return view('projects.show', compact('project', 'tasks'));
     }
 
     /**
@@ -68,7 +69,7 @@ class ProjectController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+        return redirect()->back()->with('success', 'Project updated successfully.');
     }
 
     /**
@@ -83,6 +84,6 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         $project->delete();
 
-        return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
+        return redirect()->back()->with('success', 'Project deleted successfully.');
     }
 }

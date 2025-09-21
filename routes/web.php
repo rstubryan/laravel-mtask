@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +28,14 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     });
 
+    Route::prefix('tasks')->group(function () {
+        Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
+        Route::post('/', [TaskController::class, 'store'])->name('tasks.store');
+        Route::get('/{id}', [TaskController::class, 'show'])->name('tasks.show');
+        Route::put('/{id}', [TaskController::class, 'update'])->name('tasks.update');
+        Route::patch('/{id}', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
+        Route::delete('/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';
