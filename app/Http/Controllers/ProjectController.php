@@ -21,6 +21,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('create projects')) {
+            abort(403);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
