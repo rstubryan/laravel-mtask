@@ -48,12 +48,21 @@
                         <x-select
                             name="status"
                             :options="[
-        'pending' => 'Pending',
-        'in_progress' => 'In Progress',
-        'completed' => 'Completed',
-    ]"
+                        'pending' => 'Pending',
+                        'in_progress' => 'In Progress',
+                        'completed' => 'Completed',
+                    ]"
                             :value="$task->status"
                             required
+                            class="col-span-3"
+                        />
+                    </div>
+                    <div class="grid grid-cols-4 items-center gap-4">
+                        <x-aui::label for="assigned_to" class="text-right">Assigned User</x-aui::label>
+                        <x-select
+                            name="assigned_to"
+                            :options="$users->pluck('name', 'id')->prepend('Unassigned', '')->toArray()"
+                            :value="old('assigned_to', $task->assigned_to)"
                             class="col-span-3"
                         />
                     </div>

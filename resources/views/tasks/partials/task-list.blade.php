@@ -16,13 +16,17 @@
                 <x-slot:description>
                     <p>{{ $task->description }}</p>
                     <p class="text-sm">
-                                            <span class="text-gray-500">
-                                                Project:
-                                            </span>
+                        <span class="text-gray-500">Project:</span>
                         <a href="{{ route('projects.show', $task->project) }}"
                            class="font-semibold text-black hover:underline hover:underline-offset-4">
                             {{ $task->project->name }}
                         </a>
+                    </p>
+                    <p class="text-sm">
+                        <span class="text-gray-500">Assigned to:</span>
+                        <span class="font-semibold text-black">
+                                                                            {{ $task->assignedTo ? $task->assignedTo->name : 'Unassigned' }}
+                                                                        </span>
                     </p>
                     <div class="flex items-center gap-4 mt-4 mb-2 p-2 bg-gray-100 rounded">
                         <p class="font-medium">Status:</p>
@@ -62,7 +66,7 @@
                         {{ __('View Task') }}
                     </x-aui::button-link>
                     @can('edit tasks')
-                        @include('tasks.partials.edit-task', ['task' => $task])
+                        @include('tasks.partials.edit-task', ['task' => $task, 'users' => $users])
                     @endcan
                     @can('delete tasks')
                         <form action="{{ route('tasks.destroy', $task) }}" method="POST"

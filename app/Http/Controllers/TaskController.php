@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -11,11 +12,13 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $tasks = Task::paginate(9);
         $projects = Project::all();
-        return view('tasks.index', compact('tasks', 'projects'));
+        $users = User::all();
+        return view('tasks.index', compact('tasks', 'projects', 'users'));
     }
 
     /**
@@ -33,6 +36,7 @@ class TaskController extends Controller
             'project_id' => 'required|exists:projects,id',
             'status' => 'nullable|in:pending,in_progress,completed',
             'due_date' => 'nullable|date|after_or_equal:today',
+            'assigned_to' => 'nullable|exists:users,id',
         ]);
 
         Task::create([
@@ -42,6 +46,7 @@ class TaskController extends Controller
             'status' => $request->status ?? 'pending',
             'due_date' => $request->due_date,
             'created_by' => auth()->id(),
+            'assigned_to' => $request->assigned_to,
         ]);
 
         return redirect()->back()->with('success', 'Task created successfully.');
@@ -71,6 +76,7 @@ class TaskController extends Controller
             'project_id' => 'required|exists:projects,id',
             'status' => 'required|in:pending,in_progress,completed',
             'due_date' => 'nullable|date|after_or_equal:today',
+            'assigned_to' => 'nullable|exists:users,id',
         ]);
 
         $task = Task::findOrFail($id);
@@ -80,9 +86,8 @@ class TaskController extends Controller
             'project_id' => $request->project_id,
             'status' => $request->status,
             'due_date' => $request->due_date,
+            'assigned_to' => $request->assigned_to,
         ]);
-
-        \Log::info('Task updated:', $task->toArray());
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
