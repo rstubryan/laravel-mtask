@@ -20,6 +20,10 @@ class Task extends Model
         'assigned_to',
     ];
 
+    protected $casts = [
+        'due_date' => 'datetime',
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

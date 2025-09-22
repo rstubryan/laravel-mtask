@@ -27,8 +27,8 @@
                     </div>
                     <div class="grid grid-cols-4 items-center gap-4">
                         <x-aui::label for="description" class="text-right">Description</x-aui::label>
-                        <x-aui::input class="col-span-3" id="description" name="description"
-                                      value="{{ old('description') }}"/>
+                        <x-aui::textarea class="col-span-3" id="description"
+                                         name="description">{{ old('description') }}</x-aui::textarea>
                     </div>
                     <div class="grid grid-cols-4 items-center gap-4">
                         <x-aui::label for="status" class="text-right">Status</x-aui::label>

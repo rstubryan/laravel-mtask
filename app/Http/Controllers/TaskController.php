@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate(10);
-        return view('tasks.index', compact('tasks'));
+        $tasks = Task::paginate(9);
+        $projects = Project::all();
+        return view('tasks.index', compact('tasks', 'projects'));
     }
 
     /**
@@ -67,7 +69,7 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'project_id' => 'required|exists:projects,id',
-            'status' => 'nullable|in:pending,in_progress,completed',
+            'status' => 'required|in:pending,in_progress,completed',
             'due_date' => 'nullable|date|after_or_equal:today',
         ]);
 
@@ -80,7 +82,9 @@ class TaskController extends Controller
             'due_date' => $request->due_date,
         ]);
 
-        return redirect()->back()->with('success', 'Task updated successfully.');
+        \Log::info('Task updated:', $task->toArray());
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     /**
