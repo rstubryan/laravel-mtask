@@ -28,9 +28,9 @@
                     </div>
                     <div class="grid grid-cols-4 items-center gap-4">
                         <x-aui::label for="description" class="text-right">Description</x-aui::label>
-                        <textarea name="description" class="col-span-3">
-                                                    {{ old('description', $task->description) }}
-                                                </textarea>
+                        <x-textarea name="description" class="col-span-3">
+                            {{ old('description', $task->description) }}
+                        </x-textarea>
                     </div>
                     <div class="grid grid-cols-4 items-center gap-4">
                         <x-aui::label for="due_date" class="text-right">Due Date</x-aui::label>
@@ -45,18 +45,17 @@
                     </div>
                     <div class="grid grid-cols-4 items-center gap-4">
                         <x-aui::label for="status" class="text-right">Status</x-aui::label>
-                        <select id="status" class="col-span-3" name="status" required>
-                            <option value="pending" @if(old('status', $task->status) == 'pending') selected @endif>
-                                Pending
-                            </option>
-                            <option value="in_progress"
-                                    @if(old('status', $task->status) == 'in_progress') selected @endif>
-                                In Progress
-                            </option>
-                            <option value="completed" @if(old('status', $task->status) == 'completed') selected @endif>
-                                Completed
-                            </option>
-                        </select>
+                        <x-select
+                            name="status"
+                            :options="[
+        'pending' => 'Pending',
+        'in_progress' => 'In Progress',
+        'completed' => 'Completed',
+    ]"
+                            :value="$task->status"
+                            required
+                            class="col-span-3"
+                        />
                     </div>
                 </div>
                 <x-aui::dialog-footer>
