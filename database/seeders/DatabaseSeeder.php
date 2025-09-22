@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProjectSeeder::class,
             GroupSeeder::class,
+            GroupTaskSeeder::class,
             TaskSeeder::class,
             IssueSeeder::class,
             RolePermissionSeeder::class
         ]);
-        
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

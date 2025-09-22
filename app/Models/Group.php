@@ -13,11 +13,10 @@ class Group extends Model
     protected $fillable = [
         'name',
         'description',
-        'project_id',
     ];
 
-    public function project()
+    public function tasks()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsToMany(Task::class, 'group_tasks', 'group_id', 'task_id');
     }
 }

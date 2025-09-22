@@ -36,6 +36,22 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{id}', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
         Route::delete('/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     });
+
+    Route::prefix('groups')->group(function () {
+        Route::get('/', [App\Http\Controllers\GroupController::class, 'index'])->name('groups.index');
+        Route::post('/', [App\Http\Controllers\GroupController::class, 'store'])->name('groups.store');
+        Route::get('/{id}', [App\Http\Controllers\GroupController::class, 'show'])->name('groups.show');
+        Route::put('/{id}', [App\Http\Controllers\GroupController::class, 'update'])->name('groups.update');
+        Route::delete('/{id}', [App\Http\Controllers\GroupController::class, 'destroy'])->name('groups.destroy');
+    });
+
+    Route::prefix('grouptasks')->group(function () {
+        Route::get('/', [App\Http\Controllers\GroupTaskController::class, 'index'])->name('grouptasks.index');
+        Route::post('/', [App\Http\Controllers\GroupTaskController::class, 'store'])->name('grouptasks.store');
+        Route::get('/{id}', [App\Http\Controllers\GroupTaskController::class, 'show'])->name('grouptasks.show');
+        Route::put('/{id}', [App\Http\Controllers\GroupTaskController::class, 'update'])->name('grouptasks.update');
+        Route::delete('/{id}', [App\Http\Controllers\GroupTaskController::class, 'destroy'])->name('grouptasks.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';
