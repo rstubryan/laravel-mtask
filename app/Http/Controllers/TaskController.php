@@ -89,7 +89,7 @@ class TaskController extends Controller
             'assigned_to' => $request->assigned_to,
         ]);
 
-        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+        return redirect()->back()->with('success', 'Task updated successfully.');
     }
 
     /**

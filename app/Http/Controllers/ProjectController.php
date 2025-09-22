@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Project;
 
@@ -46,7 +47,8 @@ class ProjectController extends Controller
     {
         $project = Project::with('tasks')->findOrFail($id);
         $tasks = $project->tasks;
-        return view('projects.show', compact('project', 'tasks'));
+        $users = User::all();
+        return view('projects.show', compact('project', 'tasks', 'users'));
     }
 
     /**

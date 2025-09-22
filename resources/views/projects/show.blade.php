@@ -21,7 +21,7 @@
                     @include('projects.partials.create-related-task', ['project' => $project])
                 </div>
                 <div class="mt-4">
-                    @include('projects.partials.task-list', ['tasks' => $project->tasks])
+                    @include('projects.partials.related-task-list', ['tasks' => $project->tasks, 'users' => $users])
                 </div>
             </div>
         </div>

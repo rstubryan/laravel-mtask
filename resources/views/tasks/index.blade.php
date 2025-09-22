@@ -4,9 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Tasks') }}
             </h2>
-{{--            @can('create tasks')--}}
-{{--                @include('tasks.partials.create-task')--}}
-{{--            @endcan--}}
+            @can('create tasks')
+                @include('tasks.partials.create-task')
+            @endcan
         </div>
     </x-slot>
 

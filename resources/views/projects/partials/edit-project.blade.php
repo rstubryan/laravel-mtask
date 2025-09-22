@@ -1,5 +1,5 @@
 <section>
-    <x-aui::dialog dismissable="true">
+    <x-aui::dialog dismissable="true" x-cloak>
         <x-slot:trigger>
             <x-aui::button variant="outline">
                 Edit Project

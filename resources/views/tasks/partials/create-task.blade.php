@@ -1,26 +1,34 @@
 @php use Carbon\Carbon; @endphp
 
 <section>
-    <x-aui::dialog dismissable="true" x-cloak="true">
+    <x-aui::dialog dismissable="true" x-cloak>
         <x-slot:trigger>
             <x-aui::button>
-                Create Related Task
+                Create Task
             </x-aui::button>
         </x-slot:trigger>
         <x-slot:content class="sm:max-w-[425px]">
             <x-aui::dialog-header>
                 <x-slot:title>
-                    Create Task for {{ $project->name }}
+                    Create Task
                 </x-slot:title>
                 <x-slot:description>
-                    Fill in the details to create a new task related to this project.
+                    Fill in the details to create a new task.
                 </x-slot:description>
             </x-aui::dialog-header>
             <form method="POST" action="{{ route('tasks.store') }}">
                 @csrf
-                @method('POST')
-                <input type="hidden" name="project_id" value="{{ $project->id }}">
                 <div class="grid gap-4 py-4">
+                    <div class="grid grid-cols-4 items-center gap-4">
+                        <x-aui::label for="project_id" class="text-right">Project</x-aui::label>
+                        <x-select
+                            name="project_id"
+                            :options="$projects->pluck('name', 'id')->toArray()"
+                            :value="old('project_id')"
+                            required
+                            class="col-span-3"
+                        />
+                    </div>
                     <div class="grid grid-cols-4 items-center gap-4">
                         <x-aui::label for="title" class="text-right">Title</x-aui::label>
                         <x-aui::input id="title" class="col-span-3" name="title"
@@ -48,10 +56,10 @@
                         <x-select
                             name="status"
                             :options="[
-                                                        'pending' => 'Pending',
-                                                        'in_progress' => 'In Progress',
-                                                        'completed' => 'Completed',
-                                                    ]"
+                                'pending' => 'Pending',
+                                'in_progress' => 'In Progress',
+                                'completed' => 'Completed',
+                            ]"
                             :value="old('status', 'pending')"
                             required
                             class="col-span-3"
