@@ -14,7 +14,7 @@
             <x-aui::card class="md:w-[350px]">
                 <x-slot:title>{{ $issue->title }}</x-slot:title>
                 <x-slot:description>
-                    <p>{{ $issue->description }}</p>
+                    <p class="text-sm text-muted-foreground">{{ $issue->description }}</p>
                     <p class="text-sm">
                         <span class="text-gray-500">Task:</span>
                         @if($issue->task)

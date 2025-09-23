@@ -14,7 +14,7 @@
             <x-aui::card class="md:w-[350px]">
                 <x-slot:title>{{ $task->title }}</x-slot:title>
                 <x-slot:description>
-                    <p>{{ $task->description }}</p>
+                    <p class="text-sm text-muted-foreground">{{ $task->description }}</p>
                     <p class="text-sm">
                         <span class="text-gray-500">Project:</span>
                         <a href="{{ route('projects.show', $task->project) }}"
