@@ -1,4 +1,3 @@
-@php use App\Models\User; @endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-4 justify-between">
@@ -12,7 +11,7 @@
                 </h2>
             </div>
             @can('edit tasks')
-                @include('tasks.partials.edit-task', ['task' => $task, 'users' => User::all()])
+                @include('tasks.partials.edit-task', ['task' => $task, 'users' => $users])
             @endcan
         </div>
     </x-slot>
