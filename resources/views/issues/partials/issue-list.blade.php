@@ -34,7 +34,7 @@
                     </p>
                     <div class="flex items-center gap-4 mt-4 mb-2 p-2 bg-gray-100 rounded">
                         <p class="font-medium">Status:</p>
-                        @can('edit issues')
+                        @can('update issue status')
                             <form id="status-form-{{ $issue->id }}" method="POST"
                                   action="{{ route('issues.updateStatus', $issue) }}" class="flex-1">
                                 @csrf
