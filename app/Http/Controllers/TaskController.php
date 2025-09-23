@@ -99,7 +99,7 @@ class TaskController extends Controller
 
     public function updateStatus(Request $request, string $id)
     {
-        if (!auth()->user()->can('edit tasks')) {
+        if (!auth()->user()->can('update task status')) {
             abort(403);
         }
 

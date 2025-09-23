@@ -33,6 +33,8 @@ class RolePermissionSeeder extends Seeder
             'edit issues',
             'update issue status',
             'delete issues',
+            'create related tasks',
+            'assign related tasks to grouptasks',
         ];
 
         $roles = [

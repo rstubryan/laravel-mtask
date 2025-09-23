@@ -103,7 +103,7 @@ class IssueController extends Controller
      */
     public function updateStatus(Request $request, string $id)
     {
-        if (!auth()->user()->can('edit issues')) {
+        if (!auth()->user()->can('update issue status')) {
             abort(403);
         }
 

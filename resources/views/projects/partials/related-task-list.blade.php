@@ -31,22 +31,25 @@
                         </p>
                         <div class="flex items-center gap-4 mt-4 mb-2 p-2 bg-gray-100 rounded">
                             <p class="font-medium">Status:</p>
-                            <form id="status-form-{{ $task->id }}" method="POST"
-                                  action="{{ route('tasks.updateStatus', $task) }}" class="flex-1">
-                                @csrf
-                                @method('PATCH')
-                                <x-aui::select class="w-max" name="status"
-                                               onchange="document.getElementById('status-form-{{ $task->id }}').submit()">
-                                    <option value="pending" @if($task->status === 'pending') selected @endif>Pending
-                                    </option>
-                                    <option value="in_progress" @if($task->status === 'in_progress') selected @endif>In
-                                        Progress
-                                    </option>
-                                    <option value="completed" @if($task->status === 'completed') selected @endif>
-                                        Completed
-                                    </option>
-                                </x-aui::select>
-                            </form>
+                            @can('update task status')
+                                <form id="status-form-{{ $task->id }}" method="POST"
+                                      action="{{ route('tasks.updateStatus', $task) }}" class="flex-1">
+                                    @csrf
+                                    @method('PATCH')
+                                    <x-aui::select class="w-max" name="status"
+                                                   onchange="document.getElementById('status-form-{{ $task->id }}').submit()">
+                                        <option value="pending" @if($task->status === 'pending') selected @endif>Pending
+                                        </option>
+                                        <option value="in_progress"
+                                                @if($task->status === 'in_progress') selected @endif>In
+                                            Progress
+                                        </option>
+                                        <option value="completed" @if($task->status === 'completed') selected @endif>
+                                            Completed
+                                        </option>
+                                    </x-aui::select>
+                                </form>
+                            @endcan
                         </div>
                         <p class="text-sm text-gray-500 mt-2">
                             @if($due)

@@ -18,7 +18,9 @@
                         <h3 class="text-lg font-semibold text-gray-900">{{ $project->name }}</h3>
                         <p class="mt-1 text-sm text-gray-600">{{ $project->description }}</p>
                     </div>
-                    @include('projects.partials.create-related-task', ['project' => $project])
+                    @can('create related tasks')
+                        @include('projects.partials.create-related-task', ['project' => $project])
+                    @endcan
                 </div>
                 <div class="mt-4">
                     @include('projects.partials.related-task-list', ['tasks' => $project->tasks, 'users' => $users])

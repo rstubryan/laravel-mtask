@@ -18,7 +18,9 @@
                         <h3 class="text-lg font-semibold text-gray-900">{{ $group->name }}</h3>
                         <p class="mt-1 text-sm text-gray-600">{{ $group->description }}</p>
                     </div>
-                    @include('groups.partials.create-related-group-task', ['group' => $group])
+                    @can('assign related tasks to grouptasks')
+                        @include('groups.partials.create-related-group-task', ['group' => $group])
+                    @endcan
                 </div>
                 <div class="mt-4">
                     @include('groups.partials.related-group-task-list', ['tasks' => $tasks])                </div>
