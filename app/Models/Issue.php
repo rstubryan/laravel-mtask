@@ -15,6 +15,7 @@ class Issue extends Model
         'title',
         'description',
         'status',
+        'due_date',
         'created_by',
         'assigned_to',
     ];

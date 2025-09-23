@@ -23,6 +23,7 @@ class IssueFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'status' => $this->faker->randomElement(['open', 'in_progress', 'resolved', 'closed']),
+            'due_date' => $this->faker->optional()->date(),
             'created_by' => User::factory(),
             'assigned_to' => $this->faker->optional()->randomElement(User::pluck('id')->toArray()),
         ];

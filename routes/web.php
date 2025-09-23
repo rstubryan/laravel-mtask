@@ -52,6 +52,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/{id}', [App\Http\Controllers\GroupTaskController::class, 'update'])->name('grouptasks.update');
         Route::delete('/{id}', [App\Http\Controllers\GroupTaskController::class, 'destroy'])->name('grouptasks.destroy');
     });
+
+    Route::prefix('issues')->group(function () {
+        Route::get('/', [App\Http\Controllers\IssueController::class, 'index'])->name('issues.index');
+        Route::post('/', [App\Http\Controllers\IssueController::class, 'store'])->name('issues.store');
+        Route::get('/{id}', [App\Http\Controllers\IssueController::class, 'show'])->name('issues.show');
+        Route::put('/{id}', [App\Http\Controllers\IssueController::class, 'update'])->name('issues.update');
+        Route::patch('/{id}', [App\Http\Controllers\IssueController::class, 'updateStatus'])->name('issues.updateStatus');
+        Route::delete('/{id}', [App\Http\Controllers\IssueController::class, 'destroy'])->name('issues.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';
