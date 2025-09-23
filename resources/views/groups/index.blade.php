@@ -4,9 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Groups') }}
             </h2>
-            {{--            @can('create groups')--}}
-            {{--                @include('groups.partials.create-group')--}}
-            {{--            @endcan--}}
+            @can('create groups')
+                @include('groups.partials.create-group')
+            @endcan
         </div>
     </x-slot>
 

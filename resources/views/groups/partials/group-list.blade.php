@@ -10,9 +10,9 @@
                     <x-aui::button-link variant="outline" href="{{ route('groups.show', $group) }}">
                         {{ __('View Group') }}
                     </x-aui::button-link>
-                    {{--                    @can('edit groups')--}}
-                    {{--                        @include('groups.partials.edit-group', ['group' => $group])--}}
-                    {{--                    @endcan--}}
+                    @can('edit groups')
+                        @include('groups.partials.edit-group', ['group' => $group])
+                    @endcan
                     @can('delete groups')
                         <form action="{{ route('groups.destroy', $group) }}" method="POST"
                               onsubmit="return confirm('Are you sure you want to delete this group?');">
