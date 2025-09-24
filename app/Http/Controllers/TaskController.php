@@ -13,9 +13,15 @@ class TaskController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::paginate(9);
+        $query = Task::query();
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $tasks = $query->paginate(9);
         $projects = Project::all();
         $users = User::all();
         return view('tasks.index', compact('tasks', 'projects', 'users'));
