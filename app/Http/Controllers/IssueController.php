@@ -14,6 +14,12 @@ class IssueController extends Controller
      */
     public function index()
     {
+        $query = Issue::query();
+
+        if (request()->filled('status')) {
+            $query->where('status', request()->status);
+        }
+
         $issues = Issue::paginate(9);
         $tasks = Task::all();
         $users = User::all();
